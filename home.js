@@ -216,7 +216,7 @@ for (let i = 0; i < arregloevents.length; i += 4) {
     for (let j = i; j < i + 4; j++) {
         if (arregloevents[j] != undefined) {
             let card = document.createElement("div")
-            card.classList.add("card", "cardstilo", "bg-danger")
+            card.classList.add("card", "cardstilo")
             card.innerHTML = `
                          <img src="${arregloevents[j].image}" class="card-img-top" alt="Maraton">
                             <div class="card-body">
