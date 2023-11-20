@@ -218,15 +218,13 @@ for (let i = 0; i < arregloevents.length; i += 4) {
             let card = document.createElement("div")
             card.classList.add("card", "cardstilo")
             card.innerHTML = `
-                         <img src="${arregloevents[j].image}" class="card-img-top" alt="Maraton">
+                         <img src="${arregloevents[j].image}" class="card-img-top tamañoimagen" alt="Maraton">
                             <div class="card-body">
                                 <h5 class="card-title">${arregloevents[j].name}</h5>
                                 <p class="card-text">${arregloevents[j].description} </p>
                                 <p class="card-text">${arregloevents[j].date} </p>
                                 <p class="card-text">${arregloevents[j].category} </p>
-                                <p class="card-text">${arregloevents[j].place} </p>
-                                <p class="card-text">${arregloevents[j].capacity} </p>
-                                <p class="card-text">${arregloevents[j].assistance} </p>
+        
                                 <div class="d-flex flex-row mb-3 d-flex align-items-center">
                                     <p>Price: ${arregloevents[j].price}</p>
                                     <a href="Detail.html" class="btn btn-primary ms-auto p-2">Details</a>

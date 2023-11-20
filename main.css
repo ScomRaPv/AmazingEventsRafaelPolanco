@@ -16,4 +16,5 @@
     height: 34px;
 }
 
-.cardstilo {width: 18rem;}
+.cardstilo {width: 18rem !important }
+.tamañoimagen{height: 15rem;}
