@@ -197,7 +197,21 @@ const data = {
 
 let carrusel = document.getElementById("pruebacarucel");
 
-pintartarjetade4en4(data.events, carrusel)
+let eventospasados = filtrararreglomenores(data.events,data.currentDate)
+
+
+pintartarjetade4en4(eventospasados, carrusel);
+
+
+function filtrararreglomenores(arreglo,fecha) {
+    let nuevoarreglo = []
+    for (let i = 0; i < arreglo.length; i++) {
+       if (arreglo[i].date < fecha) {
+         nuevoarreglo.push(arreglo[i])
+       }
+    } 
+    return nuevoarreglo
+}
 
 function pintartarjetade4en4(arregloevents, divprincipal) { 
 
@@ -221,10 +235,8 @@ for (let i = 0; i < arregloevents.length; i += 4) {
                          <img src="${arregloevents[j].image}" class="card-img-top tamañoimagen" alt="Maraton">
                             <div class="card-body">
                                 <h5 class="card-title">${arregloevents[j].name}</h5>
-                                <p class="card-text">${arregloevents[j].description} </p>
-                                <p class="card-text">${arregloevents[j].date} </p>
+                                <p class="card-text tamañode">${arregloevents[j].description} </p>
                                 <p class="card-text">${arregloevents[j].category} </p>
-                               
                                 <div class="d-flex flex-row mb-3 d-flex align-items-center">
                                     <p>Price: ${arregloevents[j].price}</p>
                                     <a href="Detail.html" class="btn btn-primary ms-auto p-2">Details</a>
@@ -240,7 +252,6 @@ for (let i = 0; i < arregloevents.length; i += 4) {
    
      }
 }
-
 
 
 
