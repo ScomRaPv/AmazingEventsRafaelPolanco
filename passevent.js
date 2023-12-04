@@ -197,62 +197,108 @@ const data = {
 
 let carrusel = document.getElementById("pruebacarucel");
 
-let eventospasados = filtrararreglomenores(data.events,data.currentDate)
-
+let eventospasados = filtrararreglomenores(data.events, data.currentDate)
 
 pintartarjetade4en4(eventospasados, carrusel);
 
+let buscador = document.getElementById("inputBusqueda");
 
-function filtrararreglomenores(arreglo,fecha) {
+let contenedorCheckbox = document.getElementById("contenedorCheckbox");
+
+let arrayCategory = Array.from(new Set(data.events.map(event => event.category)))
+
+pintarCheckbox(arrayCategory, contenedorCheckbox)
+
+contenedorCheckbox.addEventListener("change", e => {
+    let checked = Array.from(document.querySelectorAll("input[type=checkbox]:checked")).map(checkbox => checkbox.value.toLowerCase())
+    filtrarCheckbox(data.events, checked)
+    let nuevoArreglo = filtrarCheckbox(eventospasados, checked)
+    pintartarjetade4en4(nuevoArreglo, carrusel)
+})
+buscador.addEventListener("keyup", e => {
+    let nuevoArreglo = filtrarPalabra(eventospasados, e.target.value)
+    pintartarjetade4en4(nuevoArreglo, carrusel)
+})
+
+
+function filtrararreglomenores(arreglo, fecha) {
     let nuevoarreglo = []
     for (let i = 0; i < arreglo.length; i++) {
-       if (arreglo[i].date < fecha) {
-         nuevoarreglo.push(arreglo[i])
-       }
-    } 
+        if (arreglo[i].date < fecha) {
+            nuevoarreglo.push(arreglo[i])
+        }
+    }
     return nuevoarreglo
 }
 
-function pintartarjetade4en4(arregloevents, divprincipal) { 
-
-for (let i = 0; i < arregloevents.length; i += 4) {
-    let carruselitem
-    if (i < 4) {
-        carruselitem = document.createElement("div")
-        carruselitem.classList.add("carousel-item", "active")
-    } else {
-        carruselitem = document.createElement("div")
-        carruselitem.classList.add("carousel-item")
+function pintartarjetade4en4(arregloEvento, divPrincipal) {
+    divPrincipal.innerHTML = ""
+    if (arregloEvento.length == 0) {
+        divPrincipal.innerHTML = "<p>No se encontraron eventos</p>"
     }
-    let contenedor = document.createElement("div")
-    contenedor.classList.add("d-flex", "justify-content-around")
+    for (let i = 0; i < arregloEvento.length; i += 4) {
+        let carruselitem
+        if (i < 4) {
+            carruselitem = document.createElement("div")
+            carruselitem.classList.add("carousel-item", "active")
+        } else {
+            carruselitem = document.createElement("div")
+            carruselitem.classList.add("carousel-item")
+        }
+        let contenedor = document.createElement("div")
+        contenedor.classList.add("d-flex", "justify-content-around")
 
-    for (let j = i; j < i + 4; j++) {
-        if (arregloevents[j] != undefined) {
-            let card = document.createElement("div")
-            card.classList.add("card", "cardstilo")
-            card.innerHTML = `
-                         <img src="${arregloevents[j].image}" class="card-img-top tamañoimagen" alt="Maraton">
+        for (let j = i; j < i + 4; j++) {
+            if (arregloEvento[j] != undefined) {
+                let card = document.createElement("div")
+                card.classList.add("card", "cardstilo")
+                card.innerHTML = `
+                         <img src="${arregloEvento[j].image}" class="card-img-top tamañoimagen" alt="Maraton">
                             <div class="card-body">
-                                <h5 class="card-title">${arregloevents[j].name}</h5>
-                                <p class="card-text tamañode">${arregloevents[j].description} </p>
-                                <p class="card-text">${arregloevents[j].category} </p>
+                                <h5 class="card-title">${arregloEvento[j].name}</h5>
+                                <p class="card-text tamañode">${arregloEvento[j].description} </p>
+                                <p class="card-text">${arregloEvento[j].category} </p>
                                 <div class="d-flex flex-row mb-3 d-flex align-items-center">
-                                    <p>Price: ${arregloevents[j].price}</p>
+                                    <p>Price: ${arregloEvento[j].price}</p>
                                     <a href="Detail.html" class="btn btn-primary ms-auto p-2">Details</a>
                                 </div>
                           </div>  `
-                     
-               contenedor.appendChild(card)
+
+                contenedor.appendChild(card)
+            }
+
+            carruselitem.appendChild(contenedor)
+            divPrincipal.appendChild(carruselitem)
         }
-        
-        carruselitem.appendChild(contenedor)
-        divprincipal.appendChild(carruselitem)
+
     }
-   
-     }
 }
 
+function filtrarPalabra(arregloEventos, palabraClave) {
+    let arregloFiltrado = arregloEventos.filter(evento => evento.name.toLowerCase().includes(palabraClave.toLowerCase()) || evento.description.toLowerCase().includes(palabraClave.toLowerCase()))
+    return arregloFiltrado
+
+}
+
+function pintarCheckbox(arregloCategory, divC) {
+    for (let j = 0; j < arregloCategory.length; j++) {
+        if (arregloCategory[j] != undefined) {
+            let checkbox = document.createElement("div")
+            checkbox.classList.add("form-check", "form-check-inline", "p-2")
+            checkbox.innerHTML = `
+       <input class="form-check-input bg-secondary" type="checkbox" id="${arregloCategory[j]}" value="${arregloCategory[j]}">
+       <label class="form-check-label" for="${arregloCategory[j]}">${arregloCategory[j]}</label> `;
+            divC.appendChild(checkbox)
+        }
+
+    }
+
+}
+
+function filtrarCheckbox(arreglo, arregloChecked) {
+    let arregloFinal = arreglo.filter(event => arregloChecked.includes(event.category.toLowerCase()))
+    return arregloFinal
+}
 
 
 
