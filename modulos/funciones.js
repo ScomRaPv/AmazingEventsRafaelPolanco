@@ -79,3 +79,18 @@ export function filtrarCheckbox(arreglo, arregloChecked) {
     return arregloFinal
     
 }
+
+// export function applyFilters(events, searchText, checkedCategories) {
+//     let filteredEvents = events;
+//     if (searchText) {
+//         filteredEvents = filteredEvents.filter(event =>
+//             event.name.toLowerCase().includes(searchText) ||
+//             event.description.toLowerCase().includes(searchText)
+//         );
+//     }
+
+//     if (checkedCategories.length > 0) {
+//         filteredEvents = filteredEvents.filter(event =>
+//             checkedCategories.includes(event.category)
+//         );
+//     }}
