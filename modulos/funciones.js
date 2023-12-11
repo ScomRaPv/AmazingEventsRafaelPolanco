@@ -1,5 +1,5 @@
 
-export let url = "https://mindhub-xj03.onrender.com/api/amazing"
+export let url = "https://mindhub-xj03.onrender.com/api/amazing";
 
 export let carrusel = document.getElementById("pruebacarucel");
 
@@ -80,17 +80,4 @@ export function filtrarCheckbox(arreglo, arregloChecked) {
     
 }
 
-// export function applyFilters(events, searchText, checkedCategories) {
-//     let filteredEvents = events;
-//     if (searchText) {
-//         filteredEvents = filteredEvents.filter(event =>
-//             event.name.toLowerCase().includes(searchText) ||
-//             event.description.toLowerCase().includes(searchText)
-//         );
-//     }
 
-//     if (checkedCategories.length > 0) {
-//         filteredEvents = filteredEvents.filter(event =>
-//             checkedCategories.includes(event.category)
-//         );
-//     }}

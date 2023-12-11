@@ -21,7 +21,12 @@
 .tamañode{height: 6rem;}
 
 
-#tarjetaDetalle{width: 740px;
+#tarjetaDetalle{width: 550px;
 }
-#carousel-control-nex {padding: 10px;}
 
+.tamañoDetallesIMg{height: 100vh;
+width: 100vh;}
+#divButtonNext{width: 5vh;
+}
+#divButtonPREV{width: 5vh;
+}

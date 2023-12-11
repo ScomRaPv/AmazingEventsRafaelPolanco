@@ -31,137 +31,47 @@
 
     <main>
 
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
-                    aria-label="Slide 4">
-                </button><button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4"
-                    aria-label="Slide 5"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="./Recursos_Amazing_Events_Task_1/optional_banner_1.jpg" class="d-block w-100  Stylebaner"
-                        alt="banner1">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 class="fs-1">Home</h5>
-
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="./Recursos_Amazing_Events_Task_1/optional_banner_2.jpg" class="d-block w-100 Stylebaner"
-                        alt="banner2">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 class="fs-1">Home</h5>
-
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="./Recursos_Amazing_Events_Task_1/optional_banner_3.jpg" class="d-block w-100 Stylebaner"
-                        alt="banner3">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 class="fs-1">Home</h5>
-
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="./Recursos_Amazing_Events_Task_1/optional_banner_4.jpg" class="d-block w-100 Stylebaner"
-                        alt="banner4">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 class="fs-1">Home</h5>
-
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="./Recursos_Amazing_Events_Task_1/optional_banner_5.jpg" class="d-block w-100 Stylebaner"
-                        alt="banner5">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 class="fs-1">Home</h5>
-
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-        <div class="d-flex justify-content-center mt-5 ">
-
-            <table class="col-8 border border-dark">
-
-                <tr class="border border-dark  ">
-                    <th colspan="3" class="ps-2 bg-secondary">Events Statistics</th>
+        <div class="container">
+            <table class="table table-bordered m-2 colorbordetabla">
+                <thead>
+                    <tr class="titulotabla">
+                        <th colspan=3>Events statics</th>
+                    </tr>
+                    <tr>
+                        <th>Events with highest percentage of attendance</th>
+                        <th>Events with the lowest percentage of attendance</th>
+                        <th>Event with larger capacity</th>
+                    </tr>
+                    <tr>
+                        <!-- en las siguientes 2 lineas de llama a cada celda mediante su id r1, r2 y r3 -->
+                        <td id="r1"></td>
+                        <td id="r2"></td>
+                        <td id="r3"></td>
+                    </tr>
+                </thead>
+                <tr class="titulotabla">
+                    <th colspan=3>Upcoming events statics by category</th>
                 </tr>
                 <tr>
-                    <td class="border border-dark col-4 ps-2">Events with higtes % assistance</td>
-                    <td class="border border-dark col-4 ps-2">Events with lowest % assistance</td>
-                    <td class="border border-dark col-4 ps-2">Events with large capacity</td>
+                    <th>Categories</th>
+                    <th>Revenues</th>
+                    <th>Percentage of attendance</th>
                 </tr>
-                <tr class=" border border-dark ">
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                </tr>
-                <tr class="border border-dark">
-                    <th colspan="3" class="ps-2 bg-secondary">Upcoming events statistics by category</th>
+                <tbody id="statsUpcoming">
+                    <!-- aca va la tabla de estadisticas del evento futuro con el llamado a statsUpcoming-->
+                </tbody>
+                <tr class="titulotabla">
+                    <th colspan=3>Past events statics by category</th>
                 </tr>
                 <tr>
-                    <td class="border border-dark col-4 ps-2">Categories</td>
-                    <td class="border border-dark col-4 ps-2">Revenues</td>
-                    <td class="border border-dark col-4 ps-2">Percentage of assistance</td>
+                    <th>Categories</th>
+                    <th>Revenues</th>
+                    <th>Percentage of attendance</th>
                 </tr>
-                <tr class=" border border-dark ">
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                </tr>
-                <tr class=" border border-dark">
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                </tr>
-                <tr class="border border-dark">
-                    <th colspan="3" class="ps-2 bg-secondary">Pass events statistics by categories</th>
-                </tr>
-                <tr>
-                    <td class="border border-dark col-4 ps-2">Categories</td>
-                    <td class="border border-dark col-4 ps-2">Revenues</td>
-                    <td class="border border-dark col-4 ps-2">Percentage of assistance</td>
-                </tr>
-                <tr class=" border border-dark ">
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                </tr>
-                <tr class=" border border-dark">
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                    <td class="border border-dark  col-4 p-3 border bg-light ps-2"></td>
-                </tr>
-
-
-
-
-
-
-
-
+                <tfoot id="statsPassEvents">
+                    <!-- aca va la tabla de estadisticas del evento pasado con el llamado a statsPassEvents-->
+                </tfoot>
             </table>
-
-
-
         </div>
 
     </main>

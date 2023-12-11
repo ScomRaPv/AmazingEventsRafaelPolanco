@@ -1,10 +1,10 @@
-let url = "https://mindhub-xj03.onrender.com/api/amazing"
+let url = "https://mindhub-xj03.onrender.com/api/amazing";
 
 
 fetch(url)
 .then(response => response.json())
 .then(data =>{
-    console.log(data);
+ 
 let urlString = window.location.href
 
 let urlArmada = new URL(urlString)
@@ -25,7 +25,7 @@ function pintarTarjeta(arregloEventos, divC) {
             Tarjeta.innerHTML = `
             <div class="row g-0">
             <div class="col-md-12">
-                <img src="${arregloEventos[j].image}" class="img-fluid rounded-start " alt="...">
+                <img src="${arregloEventos[j].image}" class="img-fluid rounded-start tamañoDetallesIMg" alt="...">
             </div>
             <div class="col-md-12">
                 <div class="card-body">

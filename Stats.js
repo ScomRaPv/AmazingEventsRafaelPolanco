@@ -1,83 +1,119 @@
-import {url} from "./modulos/funciones";
 
+
+let url = "https://mindhub-xj03.onrender.com/api/amazing";
+
+const highest = document.getElementById('r1')
+const lowest = document.getElementById('r2')
+const larger = document.getElementById('r3')
+const statsUp = document.getElementById('statsUpcoming')
+const statsPass = document.getElementById('statsPassEvents')
+
+let arrayResults
 fetch(url)
-.then(response => response.json())
-.then(data =>{
-document.addEventListener('DOMContentLoaded', function() {
-  fillStatsTable(data.events, data.currentDate);
-});
-function fillStatsTable(events, currentDate) {
-  const statsSection = document.querySelector('table.table > tbody');
-  statsSection.innerHTML = '';
-  // Obtener estadísticas de eventos
-  const stats = calculateStats(events, currentDate);
-  // Llenar la sección de estadísticas
-  insertStatsData(statsSection, stats);
-  // Obtener y llenar la sección de eventos próximos
-  const upcomingEvents = getUpcomingEvents(events, currentDate);
-  insertEventData(statsSection, upcomingEvents, 'Upcoming Events');
-  // Obtener y llenar la sección de eventos pasados
-  const pastEvents = getPastEvents(events, currentDate);
-  insertEventData(statsSection, pastEvents, 'Past Events');
-}
-function calculateStats(events) {
-  // Aquí debes calcular las estadísticas de tus eventos. 
-  let highestAttendanceEvent = events[0];
-  let lowestAttendanceEvent = events[0];
-  let largestCapacityEvent = events[0];
-  events.forEach(event => {
-    if(event.assistance && event.assistance > highestAttendanceEvent.assistance) {
-      highestAttendanceEvent = event;
-    }
+    .then((response) => response.json())
+    .then(results => {
+      
+        arrayResults = results
+
+       
+        const events = arrayResults.events
+        const currentDate = arrayResults.currentDate
+
+   
+        const tarjetasPasadasArray = events.filter((event) => event.date < currentDate)
+        const tarjetasFuturasArray = events.filter((event) => event.date > currentDate)
+
+       
+        highestAttendancePercentage(events)
+        const eventWithHighestAttendancePercentage = highestAttendancePercentage(events)
+        highest.innerHTML = `${eventWithHighestAttendancePercentage.name}`
+
+        
+        lowestAssistancePercentage(events)
+        const eventWithLowestAttendancePercentage = lowestAssistancePercentage(events)
+        lowest.innerHTML = `${eventWithLowestAttendancePercentage.name}`
+
+      
+        findMaxCapacityEvent(events)
+        const maxCapacityEvent = findMaxCapacityEvent(events)
+        larger.innerHTML = `${maxCapacityEvent.name}`
+
+      
+        stats(tarjetasPasadasArray)
+        const statsP = stats(tarjetasPasadasArray)
+        pintarFilas(statsP, statsPass)
+        
+     
+        stats(tarjetasFuturasArray)
+        const statsU = stats(tarjetasFuturasArray)
+        pintarFilas(statsU, statsUp)
+
+         function pintarFilas(dato, contenedor) {
+          let filas = ''
+          dato.categorias.forEach(categoria => {
+              filas += `
+              <tr>
+              <td>${categoria}</td>
+              <td>$ ${dato.ganancias[categoria].toFixed(2)}</td>
+              <td>${dato.porcentajes[categoria].toFixed(2)} %</td>
+              </tr>`
+          })
+          contenedor.innerHTML = filas
+      }
+       function stats(datos) {
+          const resultado = datos.reduce((resultado, dato) => {
+              const categoria = dato.category
+             
+              if (!resultado.categorias.includes(categoria)) {
+                  resultado.categorias.push(categoria)
+                  resultado.ganancias[categoria] = 0
+                  resultado.attendance[categoria] = 0
+                  resultado.capacidad[categoria] = 0
+              }
+             
+              const attendances = dato.assistance ?? dato.estimate
+              
+              resultado.ganancias[categoria] += dato.price * attendances
+              resultado.attendance[categoria] += attendances
+              resultado.capacidad[categoria] += dato.capacity
+      
+              return resultado
+          }, { categorias: [], ganancias: {}, porcentajes: {}, attendance: {}, capacidad: {} })
+      
+          
+          resultado.categorias.forEach(categoria => {
+              resultado.porcentajes[categoria] = resultado.attendance[categoria] / resultado.capacidad[categoria] * 100
+          })
+          return resultado
+      }
+       function findMaxCapacityEvent(evento) {
+          return evento.find(event => event.capacity === Math.max(...evento.map(event => event.capacity)))
+      }
+       function lowestAssistancePercentage(evento) {
+          let lowestAssistancePercentage = Infinity
+          let eventWithLowestAttendancePercentage = null
+          for (let i = 0; i < evento.length; i++) {
+              const assistancePercentage = ((evento[i].assistance || evento[i].estimate) / evento[i].capacity) * 100
+              if (assistancePercentage < lowestAssistancePercentage) {
+                  lowestAssistancePercentage = assistancePercentage
+                  eventWithLowestAttendancePercentage = evento[i]
+              }
+          }
+          return eventWithLowestAttendancePercentage;
+      }
+       function highestAttendancePercentage(evento) {
+          let highestAttendancePercentage = 0
+          let eventWithHighestAttendancePercentage = null;
+          for (let i = 0; i < evento.length; i++) {
+              const attendancePercentage = ((evento[i].assistance || evento[i].estimate) / evento[i].capacity) * 100
+              if (attendancePercentage > highestAttendancePercentage) {
+                  highestAttendancePercentage = attendancePercentage
+                  eventWithHighestAttendancePercentage = evento[i];
+              }
+          }
+          return eventWithHighestAttendancePercentage
+      }
+
+    }   )
+
     
-    if(event.assistance && event.assistance < lowestAttendanceEvent.assistance) {
-      lowestAttendanceEvent = event;
-    }
-    
-    if(event.capacity && event.capacity > largestCapacityEvent.capacity) {
-      largestCapacityEvent = event;
-    }
-  });
-  return {
-    highestAttendance: highestAttendanceEvent.name,
-    lowestAttendance: lowestAttendanceEvent.name,
-    largestCapacity: largestCapacityEvent.name
-  };
-}
-function getUpcomingEvents(events, currentDate) {
-  return events.filter(event => new Date(event.date) >= new Date(currentDate));
-}
-function getPastEvents(events, currentDate) {
-  return events.filter(event => new Date(event.date) < new Date(currentDate));
-}
-function insertStatsData(parentElement, stats) {
-  parentElement.innerHTML += `
-    <tr class="estilo">
-      <td class="fw-bold">Event with the highest percentage of attendance</td>
-      <td class="fw-bold">Event with the lowest percentage of attendance</td>
-      <td class="fw-bold">Event with larger capacity</td>
-    </tr>
-    <tr>
-      <td class="text-body-secondary">${stats.highestAttendance}</td>
-      <td class="text-body-secondary">${stats.lowestAttendance}</td>
-      <td class="text-body-secondary">${stats.largestCapacity}</td>
-    </tr>
-  `;
-}
-function insertEventData(parentElement, events, eventType) {
-  parentElement.innerHTML += `
-    <tr>
-      <th colspan="3" class="tbody-title text-center">${eventType}</th>
-    </tr>
-  `;
-  
-  events.forEach(event => {
-    parentElement.innerHTML += `
-      <tr class="estilo">
-        <td>${event.name}</td>
-        <td>${event.date}</td>
-        <td>${event.place}</td>
-      </tr>
-    `;
-  });
-}})
